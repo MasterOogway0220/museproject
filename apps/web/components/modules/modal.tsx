@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
-// Plane imports
+// MuseProject imports
 import { Dialog, DialogContent } from "@makeplane/propel/components/dialog";
 import { setToast } from "@plane/blocks/toast";
 import { useTranslation } from "@plane/i18n";
@@ -59,45 +59,43 @@ export const CreateUpdateModuleModal = observer(function CreateUpdateModuleModal
     if (!workspaceSlug || !projectId) return;
 
     const selectedProjectId = payload.project_id ?? projectId.toString();
-    await createModule(workspaceSlug.toString(), selectedProjectId, payload)
-      .then((_res) => {
-        handleClose();
-        setToast({
-          type: "success",
-          title: "Success!",
-          message: "Module created successfully.",
-        });
-      })
-      .catch((err) => {
-        setToast({
-          type: "error",
-          title: "Error!",
-          message: err?.detail ?? err?.error ?? "Module could not be created. Please try again.",
-        });
+    try {
+      await createModule(workspaceSlug.toString(), selectedProjectId, payload);
+      handleClose();
+      setToast({
+        type: "success",
+        title: "Success!",
+        message: "Module created successfully.",
       });
+    } catch (err: any) {
+      setToast({
+        type: "error",
+        title: "Error!",
+        message: err?.detail ?? err?.error ?? "Module could not be created. Please try again.",
+      });
+    }
   };
 
   const handleUpdateModule = async (payload: Partial<IModule>) => {
     if (!workspaceSlug || !projectId || !data) return;
 
     const selectedProjectId = payload.project_id ?? projectId.toString();
-    await updateModuleDetails(workspaceSlug.toString(), selectedProjectId, data.id, payload)
-      .then((_res) => {
-        handleClose();
+    try {
+      await updateModuleDetails(workspaceSlug.toString(), selectedProjectId, data.id, payload);
+      handleClose();
 
-        setToast({
-          type: "success",
-          title: "Success!",
-          message: "Module updated successfully.",
-        });
-      })
-      .catch((err) => {
-        setToast({
-          type: "error",
-          title: "Error!",
-          message: err?.detail ?? err?.error ?? "Module could not be updated. Please try again.",
-        });
+      setToast({
+        type: "success",
+        title: "Success!",
+        message: "Module updated successfully.",
       });
+    } catch (err: any) {
+      setToast({
+        type: "error",
+        title: "Error!",
+        message: err?.detail ?? err?.error ?? "Module could not be updated. Please try again.",
+      });
+    }
   };
 
   const handleFormSubmit = async (formData: Partial<IModule>) => {

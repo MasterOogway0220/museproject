@@ -7,7 +7,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { ChevronDownOutline, ChevronUpOutline, CircleOutline } from "@makeplane/propel/icons";
-// Plane
+// MuseProject
 import type { TIssueGroupByOptions, TIssueKanbanFilters } from "@plane/types";
 
 interface IHeaderSubGroupByCard {

@@ -5,7 +5,7 @@
  */
 
 import { observer } from "mobx-react";
-// Plane Imports
+// MuseProject Imports
 import { useTranslation } from "@plane/i18n";
 import { TypeToConfirmDialog } from "@plane/blocks/dialog";
 import { setToast } from "@plane/blocks/toast";

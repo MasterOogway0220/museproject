@@ -256,28 +256,26 @@ export function InviteMembers(props: Props) {
     let payload = { ...formData };
     payload = { emails: payload.emails.filter((email) => email.email !== "") };
 
-    await workspaceService
-      .inviteWorkspace(workspace.slug, {
+    try {
+      await workspaceService.inviteWorkspace(workspace.slug, {
         emails: payload.emails.map((email) => ({
           email: email.email,
           role: email.role,
         })),
-      })
-      .then(async () => {
-        setToast({
-          type: "success",
-          title: "Success!",
-          message: "Invitations sent successfully.",
-        });
-        await nextStep();
-      })
-      .catch((err) => {
-        setToast({
-          type: "error",
-          title: "Error!",
-          message: err?.error,
-        });
       });
+      setToast({
+        type: "success",
+        title: "Success!",
+        message: "Invitations sent successfully.",
+      });
+      await nextStep();
+    } catch (err: any) {
+      setToast({
+        type: "error",
+        title: "Error!",
+        message: err?.error,
+      });
+    }
   };
 
   const appendField = () => {
@@ -306,7 +304,7 @@ export function InviteMembers(props: Props) {
           <div className="mx-auto w-4/5 space-y-1 py-4 text-center">
             <h3 className="text-h3-bold text-primary">Invite your teammates</h3>
             <p className="font-medium text-placeholder">
-              Work in plane happens best with your team. Invite them now to use Plane to its potential.
+              Work in plane happens best with your team. Invite them now to use MuseProject to its potential.
             </p>
           </div>
           <form

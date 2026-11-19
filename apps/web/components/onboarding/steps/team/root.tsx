@@ -255,28 +255,26 @@ export const InviteTeamStep = observer(function InviteTeamStep(props: Props) {
     let payload = { ...formData };
     payload = { emails: payload.emails.filter((email) => email.email !== "") };
 
-    await workspaceService
-      .inviteWorkspace(workspace.slug, {
+    try {
+      await workspaceService.inviteWorkspace(workspace.slug, {
         emails: payload.emails.map((email) => ({
           email: email.email,
           role: email.role,
         })),
-      })
-      .then(async () => {
-        setToast({
-          type: "success",
-          title: "Success!",
-          message: "Invitations sent successfully.",
-        });
-        await nextStep();
-      })
-      .catch((err) => {
-        setToast({
-          type: "error",
-          title: "Error!",
-          message: err?.error,
-        });
       });
+      setToast({
+        type: "success",
+        title: "Success!",
+        message: "Invitations sent successfully.",
+      });
+      await nextStep();
+    } catch (err: any) {
+      setToast({
+        type: "error",
+        title: "Error!",
+        message: err?.error,
+      });
+    }
   };
 
   const appendField = () => {
@@ -308,7 +306,7 @@ export const InviteTeamStep = observer(function InviteTeamStep(props: Props) {
     >
       <CommonOnboardingHeader
         title="Invite your teammates"
-        description="Work in plane happens best with your team. Invite them now to use Plane to its potential."
+        description="Work in plane happens best with your team. Invite them now to use MuseProject to its potential."
       />
       <div className="flex w-full flex-col gap-6">
         <div className="flex flex-col gap-3">

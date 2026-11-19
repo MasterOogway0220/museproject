@@ -26,7 +26,7 @@ type TPlansComparisonBaseProps = {
 export const shouldRenderPlanDetail = (planKey: TPlanePlans) => {
   // Free plan is not required to be shown in the comparison
   if (planKey === "free") return false;
-  // Plane one plan is not longer available
+  // MuseProject one plan is not longer available
   if (planKey === "one") return false;
   return true;
 };
@@ -67,8 +67,8 @@ export const PlansComparisonBase = observer(function PlansComparisonBase(props: 
                   shouldRenderPlanDetail(planKey as TPlanePlans) && (
                     <div key={planKey} className="col-span-1 p-3">
                       <ul className="list-disc space-y-1 text-body-xs-regular">
-                        {highlights.map((highlight, index) => (
-                          <li key={index}>{highlight}</li>
+                        {highlights.map((highlight) => (
+                          <li key={highlight}>{highlight}</li>
                         ))}
                       </ul>
                     </div>
@@ -80,14 +80,15 @@ export const PlansComparisonBase = observer(function PlansComparisonBase(props: 
           {/* Feature Comparison */}
           {isCompareAllFeaturesSectionOpen && (
             <>
-              {planComparison.map((section, sectionIdx) => (
-                <section key={sectionIdx} className="flex-shrink-0">
+              {planComparison.map((section) => (
+                <section key={section.id} className="flex-shrink-0">
                   <h2 className="mb-2 flex items-start gap-2 pl-2 text-h5-semibold text-secondary">
                     {section.title} {section.comingSoon && <ComingSoonBadge />}
                   </h2>
                   <div className="border-t border-subtle">
                     {section.features.map((feature, featureIdx) => (
                       <div
+                        // oxlint-disable-next-line react/no-array-index-key -- static plan list, never reordered; titles are ReactNode and not unique
                         key={featureIdx}
                         className="text-caption-md grid gap-3 rounded-xs bg-layer-transparent text-secondary even:bg-layer-1"
                         style={{ gridTemplateColumns: `repeat(${numberOfPlansToRender + 1}, minmax(0, 1fr))` }}

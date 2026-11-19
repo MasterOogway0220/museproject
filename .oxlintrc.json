@@ -48,6 +48,12 @@
         "destructuredArrayIgnorePattern": "^_",
         "ignoreRestSiblings": true
       }
+    ],
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        "allow": ["@fontsource/**", "@fontsource-variable/**", "**/*.css"]
+      }
     ]
   }
 }

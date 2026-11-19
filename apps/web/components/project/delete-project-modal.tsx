@@ -5,7 +5,7 @@
  */
 
 import { useParams } from "next/navigation";
-// Plane imports
+// MuseProject imports
 import { TypeToConfirmDialog } from "@plane/blocks/dialog";
 import { setToast } from "@plane/blocks/toast";
 import { useTranslation } from "@plane/i18n";

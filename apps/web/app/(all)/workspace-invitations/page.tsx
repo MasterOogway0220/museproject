@@ -47,34 +47,34 @@ function WorkspaceInvitationPage() {
       : null
   );
 
-  const handleAccept = () => {
+  const handleAccept = async () => {
     if (!invitationDetail) return;
-    workspaceService
-      .joinWorkspace(invitationDetail.workspace.slug, invitationDetail.id, {
+    try {
+      await workspaceService.joinWorkspace(invitationDetail.workspace.slug, invitationDetail.id, {
         accepted: true,
         token: token,
-      })
-      .then(() => {
-        if (invitationDetail.email === currentUser?.email) {
-          router.push(`/${invitationDetail.workspace.slug}`);
-        } else {
-          router.push("/");
-        }
-      })
-      .catch((err: unknown) => console.error(err));
+      });
+      if (invitationDetail.email === currentUser?.email) {
+        router.push(`/${invitationDetail.workspace.slug}`);
+      } else {
+        router.push("/");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleReject = () => {
+  const handleReject = async () => {
     if (!invitationDetail || !token) return;
-    void workspaceService
-      .joinWorkspace(invitationDetail.workspace.slug, invitationDetail.id, {
+    try {
+      await workspaceService.joinWorkspace(invitationDetail.workspace.slug, invitationDetail.id, {
         accepted: false,
         token: token,
-      })
-      .then(() => {
-        router.push("/");
-      })
-      .catch((err: unknown) => console.error(err));
+      });
+      router.push("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -93,7 +93,7 @@ function WorkspaceInvitationPage() {
               align="center"
               assetKey="inbox"
               title={`You have been invited to ${invitationDetail.workspace.name}`}
-              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your Plane account."
+              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your MuseProject account."
               actions={[
                 { label: "Accept", variant: "primary", onClick: handleAccept },
                 { label: "Ignore", variant: "secondary", onClick: handleReject },
@@ -106,7 +106,7 @@ function WorkspaceInvitationPage() {
               align="center"
               assetKey="project"
               title={`You are already a member of ${invitationDetail.workspace.name}`}
-              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your Plane account."
+              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your MuseProject account."
               customButton={
                 <Button
                   variant="primary"
@@ -123,7 +123,7 @@ function WorkspaceInvitationPage() {
               align="center"
               assetKey="invalid-link"
               title="This invitation link is not active anymore."
-              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your Plane account."
+              description="Your workspace is where you'll create projects, collaborate on your work items, and organize different streams of work in your MuseProject account."
               customButton={
                 <div className="flex flex-col items-center gap-4">
                   <Button
