@@ -25,7 +25,16 @@ export function PlaneLockup({ width = "253", height = "53", className, color = "
         d="M0 8C0 3.58 3.58 0 8 0h2.5c2.9 0 5.57 1.57 6.98 4.1L26 19.5l8.52-15.4C35.93 1.57 38.6 0 41.5 0H44c4.42 0 8 3.58 8 8v36c0 4.42-3.58 8-8 8h-2c-4.42 0-8-3.58-8-8V26.5l-4.5 8.1a4 4 0 0 1-7 0L18 26.5V44c0 4.42-3.58 8-8 8H8c-4.42 0-8-3.58-8-8V8Z"
         fill={color}
       />
-      <text x="64" y="40" fill={color} fontFamily="inherit" fontSize="34" fontWeight="600" letterSpacing="-0.5">
+      <text
+        x="64"
+        y="40"
+        fill={color}
+        fontFamily="inherit"
+        fontSize="34"
+        fontWeight="600"
+        textLength="184"
+        lengthAdjust="spacingAndGlyphs"
+      >
         MuseProject
       </text>
     </svg>
